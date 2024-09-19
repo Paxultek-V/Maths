@@ -33,6 +33,10 @@ public class Dial : MonoBehaviour
     private WSUI_DialNumber m_wsuiNumberBuffer;
     private Quaternion m_startRotationQuaternion;
     private Coroutine m_snapRotationCoroutine;
+    public Vector3 m_screenStartDirection;
+    public Vector3 m_screenCurrentDirection;
+    private Vector3 m_dialCenterScreenPosition => Camera.main.WorldToScreenPoint(transform.position);
+    public float m_rotationAngle;
     private float m_angleRotationDiff;
     private float m_angleStep => 360f / m_dialNumberList.Count;
     private bool m_isSelected;
@@ -42,7 +46,7 @@ public class Dial : MonoBehaviour
     private void OnEnable()
     {
         InputsDialController.OnSelectDial += OnSelectDial;
-        InputsDialController.OnSendRotationAngle += OnSendRotationAngle;
+        InputsDialController.OnSendRotationInfos += OnSendRotationInfos;
         InputsDialController.OnNoDialSelected += OnNoDialSelected;
         InputsDialController.OnReleaseDial += OnReleaseDial;
     }
@@ -50,7 +54,7 @@ public class Dial : MonoBehaviour
     private void OnDisable()
     {
         InputsDialController.OnSelectDial -= OnSelectDial;
-        InputsDialController.OnSendRotationAngle -= OnSendRotationAngle;
+        InputsDialController.OnSendRotationInfos -= OnSendRotationInfos;
         InputsDialController.OnNoDialSelected -= OnNoDialSelected;
         InputsDialController.OnReleaseDial -= OnReleaseDial;
     }
@@ -116,16 +120,26 @@ public class Dial : MonoBehaviour
         OnDialUpdated?.Invoke();
     }
 
-    private void OnSendRotationAngle(float rotationAngle)
+    private void OnSendRotationInfos(Vector3 cursorPosition, float rotationAngle)
     {
         if (!m_isSelected)
             return;
 
-        Quaternion targetRotation = m_startRotationQuaternion * Quaternion.AngleAxis(rotationAngle, Vector3.forward);
+        m_screenCurrentDirection = cursorPosition - m_dialCenterScreenPosition;
+        m_screenCurrentDirection.z = 0;
+        m_screenCurrentDirection.Normalize();
+        m_rotationAngle = Vector3.SignedAngle(m_screenStartDirection, m_screenCurrentDirection, transform.forward);
+        
+        
+        //Quaternion targetRotation = m_startRotationQuaternion * Quaternion.AngleAxis(rotationAngle, Vector3.forward);
+        Quaternion targetRotation = m_startRotationQuaternion * Quaternion.AngleAxis(m_rotationAngle, transform.forward);
+        
+        
+        
         m_rotationController.rotation = targetRotation;
     }
 
-    private void OnSelectDial(Collider selectedDialCollider)
+    private void OnSelectDial(Collider selectedDialCollider, Vector3 cursorPosition)
     {
         m_isSelected = m_collider == selectedDialCollider;
 
@@ -134,6 +148,11 @@ public class Dial : MonoBehaviour
             if (m_snapRotationCoroutine != null)
                 StopCoroutine(m_snapRotationCoroutine);
 
+            
+            m_screenStartDirection = cursorPosition - m_dialCenterScreenPosition;
+            m_screenStartDirection.z = 0;
+            m_screenStartDirection.Normalize();
+            
             m_startRotationQuaternion = m_rotationController.rotation;
         }
     }

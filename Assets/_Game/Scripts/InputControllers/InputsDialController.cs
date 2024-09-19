@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class InputsDialController : MonoBehaviour
 {
-    public static Action<Collider> OnSelectDial;
+    public static Action<Collider, Vector3> OnSelectDial;
     public static Action<Collider> OnReleaseDial;
-    public static Action<float> OnSendRotationAngle;
+    public static Action<Vector3, float> OnSendRotationInfos;
     public static Action OnNoDialSelected;
 
     [SerializeField] private LayerMask m_effectiveLayer = 0;
@@ -43,7 +43,7 @@ public class InputsDialController : MonoBehaviour
         {
             m_currentSelectedDial = hit.collider;
             //Debug.Log("hit", hit.collider.gameObject);
-            OnSelectDial?.Invoke(m_currentSelectedDial);
+            OnSelectDial?.Invoke(m_currentSelectedDial, m_cursorStartPosition);
         }
         else
             OnNoDialSelected?.Invoke();
@@ -56,7 +56,7 @@ public class InputsDialController : MonoBehaviour
         if(Mathf.Abs(directionDistance) < m_pixelCountThresholdToConsiderMovement)
             return;
         
-        OnSendRotationAngle?.Invoke(directionDistance * m_pixelsToAngleDegreesFactor);
+        OnSendRotationInfos?.Invoke(cursorPosition, directionDistance * m_pixelsToAngleDegreesFactor);
     }
 
     private void OnRelease(Vector3 cursorPosition)
