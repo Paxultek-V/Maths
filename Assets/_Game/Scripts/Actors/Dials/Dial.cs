@@ -8,11 +8,16 @@ public class Dial : MonoBehaviour
 {
     public static Action OnDialUpdated;
 
-    [SerializeField] private GameObject m_separatorPrefab = null;
+    [Header("Game Params")] [SerializeField]
+    private bool m_isInteractable = true;
+    
+    [Header("Separator Params")] [SerializeField]
+    private GameObject m_separatorPrefab = null;
 
     [SerializeField] private Transform m_separatorsParent = null;
 
-    [SerializeField] private WSUI_DialNumber m_wsuiDialNumberPrefab = null;
+    [Header("Numbers Params")] [SerializeField]
+    private WSUI_DialNumber m_wsuiDialNumberPrefab = null;
 
     [SerializeField] private GameObject m_anchorPrefab = null;
 
@@ -20,12 +25,19 @@ public class Dial : MonoBehaviour
 
     [SerializeField] private Transform m_wsuiParent = null;
 
-    [SerializeField] private Transform m_rotationController = null;
-
     [SerializeField] private float m_wsuiPositionRadius = 1f;
+
+    [Header("Scale Params")] [SerializeField]
+    private Transform m_scaleController = null;
+
+    [SerializeField] private float m_dialScale = 1f;
+
+    [Header("Rotation Params")] [SerializeField]
+    private Transform m_rotationController = null;
 
     [SerializeField] private Collider m_collider;
 
+    
     public List<int> m_dialNumberWithOffsetList = new List<int>();
 
     private List<Transform> m_wsuiAnchorsList;
@@ -36,15 +48,18 @@ public class Dial : MonoBehaviour
     public Vector3 m_screenStartDirection;
     public Vector3 m_screenCurrentDirection;
     private Vector3 m_dialCenterScreenPosition => Camera.main.WorldToScreenPoint(transform.position);
+    
     public float m_rotationAngle;
     private float m_angleRotationDiff;
     private float m_angleStep => 360f / m_dialNumberList.Count;
     private bool m_isSelected;
-    private int m_offset;
 
 
     private void OnEnable()
     {
+        if(m_isInteractable == false)
+            return;
+        
         InputsDialController.OnSelectDial += OnSelectDial;
         InputsDialController.OnSendRotationInfos += OnSendRotationInfos;
         InputsDialController.OnNoDialSelected += OnNoDialSelected;
@@ -53,12 +68,55 @@ public class Dial : MonoBehaviour
 
     private void OnDisable()
     {
+        if(m_isInteractable == false)
+            return;
+        
         InputsDialController.OnSelectDial -= OnSelectDial;
         InputsDialController.OnSendRotationInfos -= OnSendRotationInfos;
         InputsDialController.OnNoDialSelected -= OnNoDialSelected;
         InputsDialController.OnReleaseDial -= OnReleaseDial;
     }
 
+    #region INPUTS
+    
+    private void OnSelectDial(Collider selectedDialCollider, Vector3 cursorPosition)
+    {
+        m_isSelected = m_collider == selectedDialCollider;
+
+        if (m_isSelected)
+        {
+            if (m_snapRotationCoroutine != null)
+                StopCoroutine(m_snapRotationCoroutine);
+
+            m_screenStartDirection = cursorPosition - m_dialCenterScreenPosition;
+            m_screenStartDirection.z = 0;
+            m_screenStartDirection.Normalize();
+
+            m_startRotationQuaternion = m_rotationController.rotation;
+        }
+    }
+    
+    private void OnSendRotationInfos(Vector3 cursorPosition, float rotationAngle)
+    {
+        if (!m_isSelected)
+            return;
+
+        m_screenCurrentDirection = cursorPosition - m_dialCenterScreenPosition;
+        m_screenCurrentDirection.z = 0;
+        m_screenCurrentDirection.Normalize();
+        m_rotationAngle = Vector3.SignedAngle(m_screenStartDirection, m_screenCurrentDirection, transform.forward);
+
+        Quaternion targetRotation =
+            m_startRotationQuaternion * Quaternion.AngleAxis(m_rotationAngle, transform.forward);
+
+        m_rotationController.rotation = targetRotation;
+    }
+    
+    private void OnNoDialSelected()
+    {
+        m_isSelected = false;
+    }
+    
     private void OnReleaseDial(Collider dialCollider)
     {
         if (dialCollider != m_collider)
@@ -70,23 +128,9 @@ public class Dial : MonoBehaviour
         m_snapRotationCoroutine = StartCoroutine(SnapDialRotation());
     }
 
-    private void OnNoDialSelected()
-    {
-        m_isSelected = false;
-    }
+    #endregion
 
-    private void UpdateNumberListOrder(int stepCount)
-    {
-        m_offset = stepCount;
-        m_dialNumberWithOffsetList = new List<int>(m_dialNumberList);
-
-        if (stepCount > 0)
-            for (int i = 0; i < stepCount; i++)
-                MoveLeft();
-        else
-            for (int i = 0; i < Mathf.Abs(stepCount); i++)
-                MoveRight();
-    }
+    #region SNAPING AND NUMBERS MANAGEMENTS
 
     private IEnumerator SnapDialRotation()
     {
@@ -116,46 +160,34 @@ public class Dial : MonoBehaviour
 
         m_rotationController.rotation = targetRotationQuaternion;
 
-        
         OnDialUpdated?.Invoke();
     }
-
-    private void OnSendRotationInfos(Vector3 cursorPosition, float rotationAngle)
+    
+    private void UpdateNumberListOrder(int stepCount)
     {
-        if (!m_isSelected)
-            return;
+        m_dialNumberWithOffsetList = new List<int>(m_dialNumberList);
 
-        m_screenCurrentDirection = cursorPosition - m_dialCenterScreenPosition;
-        m_screenCurrentDirection.z = 0;
-        m_screenCurrentDirection.Normalize();
-        m_rotationAngle = Vector3.SignedAngle(m_screenStartDirection, m_screenCurrentDirection, transform.forward);
-        
-        
-        //Quaternion targetRotation = m_startRotationQuaternion * Quaternion.AngleAxis(rotationAngle, Vector3.forward);
-        Quaternion targetRotation = m_startRotationQuaternion * Quaternion.AngleAxis(m_rotationAngle, transform.forward);
-        
-        
-        
-        m_rotationController.rotation = targetRotation;
+        if (stepCount > 0)
+            for (int i = 0; i < stepCount; i++)
+                MoveLeft();
+        else
+            for (int i = 0; i < Mathf.Abs(stepCount); i++)
+                MoveRight();
     }
 
-    private void OnSelectDial(Collider selectedDialCollider, Vector3 cursorPosition)
+    private void MoveLeft()
     {
-        m_isSelected = m_collider == selectedDialCollider;
-
-        if (m_isSelected)
-        {
-            if (m_snapRotationCoroutine != null)
-                StopCoroutine(m_snapRotationCoroutine);
-
-            
-            m_screenStartDirection = cursorPosition - m_dialCenterScreenPosition;
-            m_screenStartDirection.z = 0;
-            m_screenStartDirection.Normalize();
-            
-            m_startRotationQuaternion = m_rotationController.rotation;
-        }
+        m_dialNumberWithOffsetList.MoveItemAtIndexToFront(m_dialNumberWithOffsetList.Count - 1);
     }
+
+    private void MoveRight()
+    {
+        m_dialNumberWithOffsetList.MoveItemAtIndexToLast(0);
+    }
+    
+    #endregion
+
+    #region INITIALIZATION
 
     public void Initialize(int numbersCount, int minRange, int maxRange)
     {
@@ -166,6 +198,8 @@ public class Dial : MonoBehaviour
         GenerateWSUIAnchors();
 
         GenerateWSUI();
+
+        UpdateDialScale();
 
         GenerateSeparators();
 
@@ -178,18 +212,6 @@ public class Dial : MonoBehaviour
         for (int i = 0; i < numbersCount; i++)
         {
             m_dialNumberList.Add(Random.Range(minRange, maxRange));
-        }
-    }
-
-    private void GenerateSeparators()
-    {
-        GameObject separatorBuffer;
-        for (int i = 0; i < m_dialNumberList.Count; i++)
-        {
-            separatorBuffer = Instantiate(m_separatorPrefab, transform.position - Vector3.forward, Quaternion.identity,
-                m_separatorsParent);
-            separatorBuffer.transform.rotation =
-                Quaternion.Euler(new Vector3(0, 0, m_angleStep * i ));
         }
     }
 
@@ -210,7 +232,7 @@ public class Dial : MonoBehaviour
             m_wsuiAnchorsList.Add(anchor);
         }
     }
-
+    
     private void GenerateWSUI()
     {
         for (int i = 0; i < m_dialNumberList.Count; i++)
@@ -219,17 +241,27 @@ public class Dial : MonoBehaviour
             m_wsuiNumberBuffer.Initialize(m_dialNumberList[i], m_wsuiAnchorsList[i]);
         }
     }
-
-    public void MoveLeft()
+    
+    private void UpdateDialScale()
     {
-        m_dialNumberWithOffsetList.MoveItemAtIndexToFront(m_dialNumberWithOffsetList.Count - 1);
+        m_scaleController.transform.localScale = new Vector3(m_dialScale, m_dialScale, 1f);
+    }
+    
+    private void GenerateSeparators()
+    {
+        GameObject separatorBuffer;
+        for (int i = 0; i < m_dialNumberList.Count; i++)
+        {
+            separatorBuffer = Instantiate(m_separatorPrefab, transform.position - Vector3.forward, Quaternion.identity,
+                m_separatorsParent);
+            separatorBuffer.transform.rotation =
+                Quaternion.Euler(new Vector3(0, 0, m_angleStep * i));
+            separatorBuffer.transform.localScale = new Vector3(1f, m_dialScale, 1f);
+        }
     }
 
-    public void MoveRight()
-    {
-        m_dialNumberWithOffsetList.MoveItemAtIndexToLast(0);
-    }
-
+    #endregion
+    
     public int GetRandomValueInNumberList()
     {
         return m_dialNumberList[Random.Range(0, m_dialNumberList.Count)];

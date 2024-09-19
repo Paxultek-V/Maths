@@ -118,6 +118,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1420dd0d151f24c42bb4d8cf44eaac59, type: 2}
+    - target: {fileID: 3463628443791959495, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463628443791959495, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3600095953831586640, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_Name
       value: Dial_2
@@ -127,16 +135,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4562515545151029942, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
+      propertyPath: m_dialScale
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562515545151029942, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_wsuiPositionRadius
       value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalPosition.x
@@ -249,7 +261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5660367666307927284, guid: 38439b26891fe4c53b7eb21767658879, type: 3}
       propertyPath: m_Name
-      value: LevelBase Variant
+      value: Level_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -275,9 +287,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7581855823827491275}
     m_Modifications:
+    - target: {fileID: 3463628443791959495, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463628443791959495, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3600095953831586640, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_Name
       value: Dial_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562515545151029942, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
+      propertyPath: m_dialScale
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4562515545151029942, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_wsuiPositionRadius
@@ -285,11 +309,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalPosition.x
@@ -437,6 +461,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d2c2a2a39927c4ac69222cb4996e51f7, type: 2}
+    - target: {fileID: 3463628443791959495, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3463628443791959495, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3600095953831586640, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_Name
       value: Dial_3
@@ -446,16 +478,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4562515545151029942, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
+      propertyPath: m_dialScale
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562515545151029942, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_wsuiPositionRadius
       value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalPosition.x
