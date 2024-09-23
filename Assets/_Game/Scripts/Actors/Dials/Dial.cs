@@ -276,8 +276,9 @@ public class Dial : MonoBehaviour
         {
             separatorBuffer = Instantiate(m_separatorPrefab, transform.position - Vector3.forward, Quaternion.identity,
                 m_separatorsParent);
-            separatorBuffer.transform.rotation =
-                Quaternion.Euler(new Vector3(0, 0, m_angleStep * i));
+            Vector3 direction = m_wsuiAnchorsList[i].position - transform.position;
+            direction.z = 0f;
+            separatorBuffer.transform.up = Quaternion.Euler(0,0, m_angleStep / 2f) * direction;
             separatorBuffer.transform.localScale = new Vector3(1f, (m_dialOrder + DIAL_SCALE_OFFSET), 1f);
         }
     }

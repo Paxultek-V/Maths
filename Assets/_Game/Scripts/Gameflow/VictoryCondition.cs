@@ -15,14 +15,14 @@ public class VictoryCondition : GameflowBehavior
     {
         base.OnEnable();
         //Manager_Score.OnSendCurrentScore += OnSendCurrentScore;
-        LocksController.OnAllLocksDestroyed += OnAllLocksDestroyed;
+        LevelBase.OnLevelCleared += OnLevelCleared;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
         //Manager_Score.OnSendCurrentScore -= OnSendCurrentScore;
-        LocksController.OnAllLocksDestroyed -= OnAllLocksDestroyed;
+        LevelBase.OnLevelCleared -= OnLevelCleared;
     }
 
 
@@ -44,7 +44,7 @@ public class VictoryCondition : GameflowBehavior
         m_canTrackVictory = false;
     }
 
-    private void OnAllLocksDestroyed()
+    private void OnLevelCleared()
     {
         TriggerVictory();
     }
