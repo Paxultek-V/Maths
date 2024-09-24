@@ -14,8 +14,8 @@ public class Dial : MonoBehaviour
 
     [Header("Game Params")] [SerializeField]
     private int m_dialOrder = 1;
-    [SerializeField]
-    private bool m_isInteractable = true;
+
+    [SerializeField] private bool m_isInteractable = true;
 
     [SerializeField] private bool m_canOverrideDialsControllerParam = false;
 
@@ -64,6 +64,7 @@ public class Dial : MonoBehaviour
     private WSUI_DialNumber m_wsuiNumberBuffer;
     private Quaternion m_startRotationQuaternion;
     private Coroutine m_snapRotationCoroutine;
+    private Coroutine m_moveByIncrementCoroutine;
     private Vector3 m_screenStartDirection;
     private Vector3 m_screenCurrentDirection;
     private Vector3 m_dialCenterScreenPosition => Camera.main.WorldToScreenPoint(transform.position);
@@ -98,11 +99,14 @@ public class Dial : MonoBehaviour
 
     #region INPUTS
 
-    private void OnSelectDial(Collider selectedDialCollider, Vector3 cursorPosition)
+    private void OnSelectDial(Collider selectedDialCollider, Vector3 cursorPosition, ControlMode controlMode)
     {
         m_isSelected = m_collider == selectedDialCollider;
 
-        if (m_isSelected)
+        if (!m_isSelected)
+            return;
+
+        if (controlMode == ControlMode.Hold)
         {
             if (m_snapRotationCoroutine != null)
                 StopCoroutine(m_snapRotationCoroutine);
@@ -112,6 +116,13 @@ public class Dial : MonoBehaviour
             m_screenStartDirection.Normalize();
 
             m_startRotationQuaternion = m_rotationController.rotation;
+        }
+        else if (controlMode == ControlMode.Tap)
+        {
+            if (m_moveByIncrementCoroutine != null)
+                StopCoroutine(m_moveByIncrementCoroutine);
+
+            m_moveByIncrementCoroutine = StartCoroutine(MoveByIncrement(1));
         }
     }
 
@@ -136,20 +147,48 @@ public class Dial : MonoBehaviour
         m_isSelected = false;
     }
 
-    private void OnReleaseDial(Collider dialCollider)
+    private void OnReleaseDial(Collider dialCollider, ControlMode controlMode)
     {
         if (dialCollider != m_collider)
             return;
 
-        if (m_snapRotationCoroutine != null)
-            StopCoroutine(m_snapRotationCoroutine);
+        if (controlMode == ControlMode.Hold)
+        {
+            if (m_snapRotationCoroutine != null)
+                StopCoroutine(m_snapRotationCoroutine);
 
-        m_snapRotationCoroutine = StartCoroutine(SnapDialRotation());
+            m_snapRotationCoroutine = StartCoroutine(SnapDialRotation());
+        }
     }
 
     #endregion
 
     #region SNAPING AND NUMBERS MANAGEMENTS
+
+    private IEnumerator MoveByIncrement(int stepCount)
+    {
+        UpdateNumberListOrder(stepCount);
+
+        float targetAngle = m_rotationController.rotation.eulerAngles.z + m_angleStep * stepCount;
+        
+        Vector3 targetRotation = m_rotationController.rotation.eulerAngles;
+        targetRotation.z = targetAngle;
+
+        Quaternion targetRotationQuaternion = Quaternion.Euler(targetRotation);
+
+        while (Quaternion.Angle(m_rotationController.rotation, targetRotationQuaternion) > 1)
+        {
+            m_rotationController.rotation =
+                Quaternion.RotateTowards(m_rotationController.rotation, targetRotationQuaternion,
+                    Time.deltaTime * 360f);
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        m_rotationController.rotation = targetRotationQuaternion;
+
+        OnDialUpdated?.Invoke();
+    }
 
     private IEnumerator SnapDialRotation()
     {
@@ -159,7 +198,7 @@ public class Dial : MonoBehaviour
         if (Mathf.Abs(delta) >= m_angleStep / 2f)
             stepCount += (int)Mathf.Sign(delta);
 
-        UpdateNumberListOrder(stepCount);
+        UpdateNumberListOrder(stepCount, true);
 
         float targetAngle = m_angleStep * stepCount;
 
@@ -182,9 +221,10 @@ public class Dial : MonoBehaviour
         OnDialUpdated?.Invoke();
     }
 
-    private void UpdateNumberListOrder(int stepCount)
+    private void UpdateNumberListOrder(int stepCount, bool makeOffsetFromZero = false)
     {
-        m_dialNumberWithOffsetList = new List<int>(m_dialNumberList);
+        if (makeOffsetFromZero)
+            m_dialNumberWithOffsetList = new List<int>(m_dialNumberList);
 
         if (stepCount > 0)
             for (int i = 0; i < stepCount; i++)
@@ -246,8 +286,10 @@ public class Dial : MonoBehaviour
             Transform anchor = Instantiate(m_anchorPrefab, m_anchorParent).transform;
 
             anchor.position = new Vector3(
-                Mathf.Cos(Mathf.Deg2Rad * (m_angleStep * i)) * (m_dialOrder + WSUI_POSITION_RADIUS_OFFSET) + transform.position.x,
-                Mathf.Sin(Mathf.Deg2Rad * (m_angleStep * i)) * (m_dialOrder + WSUI_POSITION_RADIUS_OFFSET) + transform.position.y,
+                Mathf.Cos(Mathf.Deg2Rad * (m_angleStep * i)) * (m_dialOrder + WSUI_POSITION_RADIUS_OFFSET) +
+                transform.position.x,
+                Mathf.Sin(Mathf.Deg2Rad * (m_angleStep * i)) * (m_dialOrder + WSUI_POSITION_RADIUS_OFFSET) +
+                transform.position.y,
                 transform.position.z - 0.3f
             );
 
@@ -266,7 +308,8 @@ public class Dial : MonoBehaviour
 
     private void UpdateDialScale()
     {
-        m_scaleController.transform.localScale = new Vector3((m_dialOrder + DIAL_SCALE_OFFSET), (m_dialOrder + DIAL_SCALE_OFFSET), 1f);
+        m_scaleController.transform.localScale =
+            new Vector3((m_dialOrder + DIAL_SCALE_OFFSET), (m_dialOrder + DIAL_SCALE_OFFSET), 1f);
     }
 
     private void GenerateSeparators()
@@ -278,7 +321,7 @@ public class Dial : MonoBehaviour
                 m_separatorsParent);
             Vector3 direction = m_wsuiAnchorsList[i].position - transform.position;
             direction.z = 0f;
-            separatorBuffer.transform.up = Quaternion.Euler(0,0, m_angleStep / 2f) * direction;
+            separatorBuffer.transform.up = Quaternion.Euler(0, 0, m_angleStep / 2f) * direction;
             separatorBuffer.transform.localScale = new Vector3(1f, (m_dialOrder + DIAL_SCALE_OFFSET), 1f);
         }
     }

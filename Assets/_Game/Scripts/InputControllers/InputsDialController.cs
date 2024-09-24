@@ -1,13 +1,21 @@
 using System;
 using UnityEngine;
 
+public enum ControlMode
+{
+    Tap,
+    Hold
+}
+
 public class InputsDialController : MonoBehaviour
 {
-    public static Action<Collider, Vector3> OnSelectDial;
-    public static Action<Collider> OnReleaseDial;
+    public static Action<Collider, Vector3, ControlMode> OnSelectDial;
+    public static Action<Collider, ControlMode> OnReleaseDial;
     public static Action<Vector3, float> OnSendRotationInfos;
     public static Action OnNoDialSelected;
 
+    [SerializeField] private ControlMode m_controlMode;
+    
     [SerializeField] private LayerMask m_effectiveLayer = 0;
 
     [SerializeField] private float m_pixelsToAngleDegreesFactor = 0.2f;
@@ -22,6 +30,7 @@ public class InputsDialController : MonoBehaviour
         Controller.OnTapBegin += OnTapBegin;
         Controller.OnHold += OnHold;
         Controller.OnRelease += OnRelease;
+        UI_Button_SwitchControls.OnSwitchControlButtonPressed += OnSwitchControlButtonPressed;
     }
 
     private void OnDisable()
@@ -29,6 +38,7 @@ public class InputsDialController : MonoBehaviour
         Controller.OnTapBegin -= OnTapBegin;
         Controller.OnHold -= OnHold;
         Controller.OnRelease -= OnRelease;
+        UI_Button_SwitchControls.OnSwitchControlButtonPressed -= OnSwitchControlButtonPressed;
     }
 
     private void OnTapBegin(Vector3 cursorPosition)
@@ -43,7 +53,7 @@ public class InputsDialController : MonoBehaviour
         {
             m_currentSelectedDial = hit.collider;
             //Debug.Log("hit", hit.collider.gameObject);
-            OnSelectDial?.Invoke(m_currentSelectedDial, m_cursorStartPosition);
+            OnSelectDial?.Invoke(m_currentSelectedDial, m_cursorStartPosition, m_controlMode);
         }
         else
             OnNoDialSelected?.Invoke();
@@ -51,6 +61,9 @@ public class InputsDialController : MonoBehaviour
 
     private void OnHold(Vector3 cursorPosition)
     {
+        if(m_controlMode != ControlMode.Hold)
+            return;
+        
         float directionDistance = cursorPosition.x - m_cursorStartPosition.x;
 
         if(Mathf.Abs(directionDistance) < m_pixelCountThresholdToConsiderMovement)
@@ -61,8 +74,17 @@ public class InputsDialController : MonoBehaviour
 
     private void OnRelease(Vector3 cursorPosition)
     {
-        OnReleaseDial?.Invoke(m_currentSelectedDial);
+        OnReleaseDial?.Invoke(m_currentSelectedDial, m_controlMode);
         OnNoDialSelected?.Invoke();
         m_currentSelectedDial = null;
+    }
+
+    private void OnSwitchControlButtonPressed()
+    {
+        if (m_controlMode == ControlMode.Hold)
+            m_controlMode = ControlMode.Tap;
+
+        if (m_controlMode == ControlMode.Tap)
+            m_controlMode = ControlMode.Hold;
     }
 }
