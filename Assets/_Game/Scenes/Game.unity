@@ -1955,7 +1955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9666a374dbdc44997a970fb39dbd3cc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_controlMode: 0
+  m_controlMode: 1
   m_effectiveLayer:
     serializedVersion: 2
     m_Bits: 256

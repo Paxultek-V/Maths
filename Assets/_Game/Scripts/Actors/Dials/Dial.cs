@@ -124,6 +124,15 @@ public class Dial : MonoBehaviour
 
             m_moveByIncrementCoroutine = StartCoroutine(MoveByIncrement(1));
         }
+        else if (controlMode == ControlMode.TapSided)
+        {
+            m_screenStartDirection = cursorPosition - m_dialCenterScreenPosition;
+
+            if (m_moveByIncrementCoroutine != null)
+                StopCoroutine(m_moveByIncrementCoroutine);
+
+            m_moveByIncrementCoroutine = StartCoroutine(MoveByIncrement(m_screenStartDirection.x > 0 ? -1 : 1));
+        }
     }
 
     private void OnSendRotationInfos(Vector3 cursorPosition, float rotationAngle)
@@ -170,7 +179,7 @@ public class Dial : MonoBehaviour
         UpdateNumberListOrder(stepCount);
 
         float targetAngle = m_rotationController.rotation.eulerAngles.z + m_angleStep * stepCount;
-        
+
         Vector3 targetRotation = m_rotationController.rotation.eulerAngles;
         targetRotation.z = targetAngle;
 

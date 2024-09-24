@@ -4,6 +4,7 @@ using UnityEngine;
 public enum ControlMode
 {
     Tap,
+    TapSided,
     Hold
 }
 
@@ -15,13 +16,13 @@ public class InputsDialController : MonoBehaviour
     public static Action OnNoDialSelected;
 
     [SerializeField] private ControlMode m_controlMode;
-    
+
     [SerializeField] private LayerMask m_effectiveLayer = 0;
 
     [SerializeField] private float m_pixelsToAngleDegreesFactor = 0.2f;
 
     [SerializeField] private float m_pixelCountThresholdToConsiderMovement = 20;
-    
+
     private Vector3 m_cursorStartPosition;
     private Collider m_currentSelectedDial;
 
@@ -46,13 +47,13 @@ public class InputsDialController : MonoBehaviour
         RaycastHit hit;
 
         m_cursorStartPosition = cursorPosition;
-        
+
         Ray ray = Camera.main!.ScreenPointToRay(cursorPosition);
 
         if (Physics.Raycast(ray, out hit, 5000f, m_effectiveLayer))
         {
             m_currentSelectedDial = hit.collider;
-            //Debug.Log("hit", hit.collider.gameObject);
+            
             OnSelectDial?.Invoke(m_currentSelectedDial, m_cursorStartPosition, m_controlMode);
         }
         else
@@ -61,14 +62,14 @@ public class InputsDialController : MonoBehaviour
 
     private void OnHold(Vector3 cursorPosition)
     {
-        if(m_controlMode != ControlMode.Hold)
+        if (m_controlMode != ControlMode.Hold)
             return;
-        
+
         float directionDistance = cursorPosition.x - m_cursorStartPosition.x;
 
-        if(Mathf.Abs(directionDistance) < m_pixelCountThresholdToConsiderMovement)
+        if (Mathf.Abs(directionDistance) < m_pixelCountThresholdToConsiderMovement)
             return;
-        
+
         OnSendRotationInfos?.Invoke(cursorPosition, directionDistance * m_pixelsToAngleDegreesFactor);
     }
 
@@ -83,8 +84,7 @@ public class InputsDialController : MonoBehaviour
     {
         if (m_controlMode == ControlMode.Hold)
             m_controlMode = ControlMode.Tap;
-
-        if (m_controlMode == ControlMode.Tap)
+        else if (m_controlMode == ControlMode.Tap)
             m_controlMode = ControlMode.Hold;
     }
 }
