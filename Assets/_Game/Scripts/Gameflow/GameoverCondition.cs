@@ -8,12 +8,17 @@ public class GameoverCondition : MonoBehaviour
 
     private void OnEnable()
     {
-        
+        ActionsController.OnNoActionsLeft += Gameover;
     }
 
     private void OnDisable()
     {
-        
+        ActionsController.OnNoActionsLeft -= Gameover;
+    }
+
+    private void Gameover()
+    {
+        OnGameover?.Invoke();
     }
 
 }

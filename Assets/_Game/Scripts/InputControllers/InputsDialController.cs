@@ -14,6 +14,7 @@ public class InputsDialController : MonoBehaviour
     public static Action<Collider, ControlMode> OnReleaseDial;
     public static Action<Vector3, float> OnSendRotationInfos;
     public static Action OnNoDialSelected;
+    public static Action<ControlMode> OnSendControlsMode;
 
     [SerializeField] private ControlMode m_controlMode;
 
@@ -25,9 +26,13 @@ public class InputsDialController : MonoBehaviour
 
     private Vector3 m_cursorStartPosition;
     private Collider m_currentSelectedDial;
+    private bool m_isControlEnabled;
 
     private void OnEnable()
     {
+        Dials_Controller.OnDialsInitialized += EnableControls;
+        Manager_GameState.OnSendCurrentGameState += OnSendCurrentGameState;
+        
         Controller.OnTapBegin += OnTapBegin;
         Controller.OnHold += OnHold;
         Controller.OnRelease += OnRelease;
@@ -36,14 +41,25 @@ public class InputsDialController : MonoBehaviour
 
     private void OnDisable()
     {
+        Dials_Controller.OnDialsInitialized -= EnableControls;
+        Manager_GameState.OnSendCurrentGameState -= OnSendCurrentGameState;
+        
         Controller.OnTapBegin -= OnTapBegin;
         Controller.OnHold -= OnHold;
         Controller.OnRelease -= OnRelease;
         UI_Button_SwitchControls.OnSwitchControlButtonPressed -= OnSwitchControlButtonPressed;
     }
 
+    private void Start()
+    {
+        OnSendControlsMode?.Invoke(m_controlMode);
+    }
+
     private void OnTapBegin(Vector3 cursorPosition)
     {
+        if(m_isControlEnabled == false)
+            return;
+        
         RaycastHit hit;
 
         m_cursorStartPosition = cursorPosition;
@@ -62,6 +78,9 @@ public class InputsDialController : MonoBehaviour
 
     private void OnHold(Vector3 cursorPosition)
     {
+        if(m_isControlEnabled == false)
+            return;
+        
         if (m_controlMode != ControlMode.Hold)
             return;
 
@@ -75,6 +94,9 @@ public class InputsDialController : MonoBehaviour
 
     private void OnRelease(Vector3 cursorPosition)
     {
+        if(m_isControlEnabled == false)
+            return;
+        
         OnReleaseDial?.Invoke(m_currentSelectedDial, m_controlMode);
         OnNoDialSelected?.Invoke();
         m_currentSelectedDial = null;
@@ -83,8 +105,34 @@ public class InputsDialController : MonoBehaviour
     private void OnSwitchControlButtonPressed()
     {
         if (m_controlMode == ControlMode.Hold)
+        {
             m_controlMode = ControlMode.Tap;
+        }
         else if (m_controlMode == ControlMode.Tap)
+        {
+            m_controlMode = ControlMode.TapSided;
+        }
+        else if (m_controlMode == ControlMode.TapSided)
+        {
             m_controlMode = ControlMode.Hold;
+        }
+        
+        OnSendControlsMode?.Invoke(m_controlMode);
+    }
+
+    private void OnSendCurrentGameState(GameState state)
+    {
+        if(state == GameState.Gameover)
+            DisableControls();
+    }
+    
+    private void EnableControls()
+    {
+        m_isControlEnabled = true;
+    }
+
+    private void DisableControls()
+    {
+        m_isControlEnabled = false;
     }
 }

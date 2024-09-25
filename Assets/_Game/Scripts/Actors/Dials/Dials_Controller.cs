@@ -7,15 +7,25 @@ public class Dials_Controller : MonoBehaviour
     public static Action OnDialsInitialized;
     public static Action<int, List<int>> OnSendCodeSequence;
     public static Action<List<int>> OnSendRandomCombinationList;
-
+    public static Action<int> OnSendTotalDialCount;
 
     [SerializeField] private int m_numbersCount = 6;
     [SerializeField] private int m_minRange = 1;
     [SerializeField] private int m_maxRange = 6;
 
+    public int NumbersCount
+    {
+        get => m_numbersCount;
+    }
+    
     private List<Dial> m_dialList = null;
     private List<int> m_codeSequenceListBuffer = new List<int>();
 
+    public List<Dial> DialList
+    {
+        get => m_dialList;
+    }
+    
     private void OnEnable()
     {
         Dial.OnDialUpdated += OnDialUpdated;
@@ -58,6 +68,7 @@ public class Dials_Controller : MonoBehaviour
         }
         
         OnDialsInitialized?.Invoke();
+        OnSendTotalDialCount?.Invoke(m_dialList.Count);
     }
 
     private void OnAskRandomDialNumbersCombination(int combinationCount)

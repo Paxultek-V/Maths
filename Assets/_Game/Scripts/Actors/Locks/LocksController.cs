@@ -7,7 +7,14 @@ public class LocksController : MonoBehaviour
     public static Action<int> OnAskRandomDialNumbersCombination;
     public static Action OnAllLocksDestroyed;
 
+    [SerializeField] private Dials_Controller m_dialsController;
+    
     private List<Lock> m_lockList;
+
+    public Dials_Controller DialsController
+    {
+        get => m_dialsController;
+    }
 
     private void Awake()
     {

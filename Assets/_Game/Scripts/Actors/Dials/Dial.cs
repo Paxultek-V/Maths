@@ -8,6 +8,7 @@ using Random = UnityEngine.Random;
 public class Dial : MonoBehaviour
 {
     public static Action OnDialUpdated;
+    public static Action OnPlayAction;
 
     private const float WSUI_POSITION_RADIUS_OFFSET = 0.5f;
     private const float DIAL_SCALE_OFFSET = 1f;
@@ -73,7 +74,7 @@ public class Dial : MonoBehaviour
     private float m_angleRotationDiff;
     private float m_angleStep => 360f / m_dialNumberList.Count;
     private bool m_isSelected;
-
+    private bool m_canMakeInteraction;
 
     private void OnEnable()
     {
@@ -117,14 +118,14 @@ public class Dial : MonoBehaviour
 
             m_startRotationQuaternion = m_rotationController.rotation;
         }
-        else if (controlMode == ControlMode.Tap)
+        else if (controlMode == ControlMode.Tap && m_canMakeInteraction)
         {
             if (m_moveByIncrementCoroutine != null)
                 StopCoroutine(m_moveByIncrementCoroutine);
 
             m_moveByIncrementCoroutine = StartCoroutine(MoveByIncrement(1));
         }
-        else if (controlMode == ControlMode.TapSided)
+        else if (controlMode == ControlMode.TapSided && m_canMakeInteraction)
         {
             m_screenStartDirection = cursorPosition - m_dialCenterScreenPosition;
 
@@ -176,6 +177,8 @@ public class Dial : MonoBehaviour
 
     private IEnumerator MoveByIncrement(int stepCount)
     {
+        m_canMakeInteraction = false;
+        
         UpdateNumberListOrder(stepCount);
 
         float targetAngle = m_rotationController.rotation.eulerAngles.z + m_angleStep * stepCount;
@@ -197,6 +200,9 @@ public class Dial : MonoBehaviour
         m_rotationController.rotation = targetRotationQuaternion;
 
         OnDialUpdated?.Invoke();
+        OnPlayAction?.Invoke();
+
+        m_canMakeInteraction = true;
     }
 
     private IEnumerator SnapDialRotation()
@@ -228,6 +234,7 @@ public class Dial : MonoBehaviour
         m_rotationController.rotation = targetRotationQuaternion;
 
         OnDialUpdated?.Invoke();
+        OnPlayAction?.Invoke();
     }
 
     private void UpdateNumberListOrder(int stepCount, bool makeOffsetFromZero = false)
@@ -275,6 +282,8 @@ public class Dial : MonoBehaviour
         GenerateSeparators();
 
         m_dialNumberWithOffsetList = new List<int>(m_dialNumberList);
+
+        m_canMakeInteraction = true;
     }
 
 

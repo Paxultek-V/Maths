@@ -47,6 +47,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 384bdddfeefc443f39eabbd57af7103d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dialsController: {fileID: 5676021180735102983}
+--- !u!1 &3884604324976688972
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2114965417033072610}
+  - component: {fileID: 2918208500696568183}
+  m_Layer: 0
+  m_Name: ActionsController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2114965417033072610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3884604324976688972}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5479763987269970601}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2918208500696568183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3884604324976688972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb2c8e1e97ba42c188ae15ed132a321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_initialActionCount: 20
 --- !u!1 &4097448088354281563
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +173,7 @@ Transform:
   m_Children:
   - {fileID: 2186360397111687204}
   - {fileID: 3850516198654886542}
+  - {fileID: 2114965417033072610}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &133014160857633928
@@ -225,11 +272,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1538530783362051871, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: 2.8057044
       objectReference: {fileID: 0}
     - target: {fileID: 1538530783362051871, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.5
+      value: 3.5182414
       objectReference: {fileID: 0}
     - target: {fileID: 1538530783362051871, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -270,6 +317,10 @@ PrefabInstance:
     - target: {fileID: 6770511116550072276, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_indexOnDial
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770511116550072276, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
+      propertyPath: m_positionRadius
+      value: 4.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -389,11 +440,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1538530783362051871, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: -1.0013446
       objectReference: {fileID: 0}
     - target: {fileID: 1538530783362051871, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5
+      value: -4.3871756
       objectReference: {fileID: 0}
     - target: {fileID: 1538530783362051871, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -433,7 +484,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6770511116550072276, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_indexOnDial
-      value: 6
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770511116550072276, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
+      propertyPath: m_positionRadius
+      value: 4.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -455,11 +510,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1538530783362051871, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.67
+      value: -1.0013437
       objectReference: {fileID: 0}
     - target: {fileID: 1538530783362051871, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.82
+      value: 4.387176
       objectReference: {fileID: 0}
     - target: {fileID: 1538530783362051871, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -499,7 +554,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6770511116550072276, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_indexOnDial
-      value: 3
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6770511116550072276, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
+      propertyPath: m_positionRadius
+      value: 4.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
