@@ -370,7 +370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6770511116550072276, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_indexOnDial
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6770511116550072276, guid: fdfd3e6a4b065407f8a7c7f896be989d, type: 3}
       propertyPath: m_positionRadius

@@ -32,20 +32,26 @@ public class Manager_Level : GameflowBehavior
     protected override void OnEnable()
     {
         base.OnEnable();
-        UI_Button_NextLevel.OnNextLevelButtonPressed += OnNextLevelButtonPressed;
+        //UI_Button_NextLevel.OnNextLevelButtonPressed += OnNextLevelButtonPressed;
         UI_ButtonDebug_NextLevel.OnDebugNextLevelButtonPressed += OnDebugNextLevelButtonPressed;
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
-        UI_Button_NextLevel.OnNextLevelButtonPressed -= OnNextLevelButtonPressed;
+        //UI_Button_NextLevel.OnNextLevelButtonPressed -= OnNextLevelButtonPressed;
         UI_ButtonDebug_NextLevel.OnDebugNextLevelButtonPressed -= OnDebugNextLevelButtonPressed;
     }
 
     protected override void OnMainMenu()
     {
         base.OnMainMenu();
+        DestroyLevel();
+    }
+
+    protected override void OnGameplay()
+    {
+        base.OnGameplay();
         InstantiateLevel();
     }
 
@@ -57,13 +63,14 @@ public class Manager_Level : GameflowBehavior
 
         SaveLevel();
         SaveTotalLevelCleared();
-        
+        OnSendTotalLevelCleared?.Invoke(m_totalLevelCleared);
         OnLevelEnd?.Invoke(true);
     }
 
     protected override void OnGameover()
     {
         base.OnGameover();
+        DestroyLevel();
         OnLevelEnd?.Invoke(false);
     }
 
@@ -93,10 +100,7 @@ public class Manager_Level : GameflowBehavior
 
     private IEnumerator InstantiateLevelCoroutine()
     {
-        foreach (Transform child in m_levelParent)
-        {
-            Destroy(child.gameObject);
-        }
+        DestroyLevel();
         
         yield return new WaitForEndOfFrame();
         
@@ -114,6 +118,14 @@ public class Manager_Level : GameflowBehavior
         OnSendCurrentLevel?.Invoke(m_currentLevelIndex);
         OnSendTotalLevelCleared?.Invoke(m_totalLevelCleared);
         OnLevelInstantiated?.Invoke();
+    }
+
+    private void DestroyLevel()
+    {
+        foreach (Transform child in m_levelParent)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     private void LoadTotalLevelCleared()
@@ -147,6 +159,8 @@ public class Manager_Level : GameflowBehavior
             m_currentLevelIndex = 0;
             SaveLevel();
         }
+        
+        OnSendCurrentLevel?.Invoke(m_currentLevelIndex);
     }
 
     private void SaveLevel()
@@ -154,4 +168,5 @@ public class Manager_Level : GameflowBehavior
         PlayerPrefs.SetInt(m_levelSaveKey, m_currentLevelIndex);
     }
 
+    
 }

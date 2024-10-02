@@ -15,6 +15,6 @@ public static class ListExtensions
     {
         T item = list[index];
         list.RemoveAt(index);
-        list.Insert(list.Count - 1, item);
+        list.Add(item);
     }
 }

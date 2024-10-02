@@ -32,6 +32,7 @@ public class InputsDialController : MonoBehaviour
     {
         Dials_Controller.OnDialsInitialized += EnableControls;
         Manager_GameState.OnSendCurrentGameState += OnSendCurrentGameState;
+        LocksController.OnAllLocksDestroyed += DisableControls;
         
         Controller.OnTapBegin += OnTapBegin;
         Controller.OnHold += OnHold;
@@ -43,6 +44,7 @@ public class InputsDialController : MonoBehaviour
     {
         Dials_Controller.OnDialsInitialized -= EnableControls;
         Manager_GameState.OnSendCurrentGameState -= OnSendCurrentGameState;
+        LocksController.OnAllLocksDestroyed -= DisableControls;
         
         Controller.OnTapBegin -= OnTapBegin;
         Controller.OnHold -= OnHold;
@@ -120,6 +122,8 @@ public class InputsDialController : MonoBehaviour
         OnSendControlsMode?.Invoke(m_controlMode);
     }
 
+    
+    
     private void OnSendCurrentGameState(GameState state)
     {
         if(state == GameState.Gameover)

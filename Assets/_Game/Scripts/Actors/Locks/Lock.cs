@@ -7,6 +7,10 @@ public class Lock : MonoBehaviour
 {
     public static Action<Lock> OnLockDestroyed;
 
+    [SerializeField] private int m_lockValue;
+    
+    [SerializeField] private int m_indexOnDial = 0;
+    
     [SerializeField] private float m_radius = 4.5f;
     
     [SerializeField] private TMP_Text m_text;
@@ -15,9 +19,7 @@ public class Lock : MonoBehaviour
 
     [SerializeField] private Transform m_fxSpawnPosition = null;
 
-    private int m_lockValue;
-
-    private int m_indexOnDial = 0;
+    [SerializeField] private bool m_debug = false;
     
     private void OnEnable()
     {
@@ -46,6 +48,9 @@ public class Lock : MonoBehaviour
         {
             sum += codeSequenceList[i];
         }
+        
+        if(m_debug)
+            Debug.Log(sum);
         
         if (sum == m_lockValue)
         {

@@ -179,7 +179,7 @@ public class Dial : MonoBehaviour
     {
         m_canMakeInteraction = false;
         
-        UpdateNumberListOrder(stepCount);
+        UpdateNumberListOrder(stepCount, false);
 
         float targetAngle = m_rotationController.rotation.eulerAngles.z + m_angleStep * stepCount;
 

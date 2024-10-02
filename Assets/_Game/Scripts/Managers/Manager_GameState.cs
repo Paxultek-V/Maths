@@ -21,9 +21,12 @@ public class Manager_GameState : MonoBehaviour
     
     private void OnEnable()
     {
-        Manager_Level.OnLevelInstantiated += OnLevelInstantiated;
-
+        //Manager_Level.OnLevelInstantiated += OnLevelInstantiated;
+        UI_Button_Play.OnPlayButtonClicked += OnPlayButtonClicked;
+        
         UI_Button_Forfeit.OnForfeitButtonPressed += OnForfeitButtonPressed;
+
+        UI_Button_NextLevel.OnNextLevelButtonPressed += OnNextLevelButtonPressed;
 
         UI_Button_NextLevel.OnNextLevelButtonPressed += Initialize;
         UI_Button_Retry.OnRetryButtonClicked += Initialize;
@@ -34,9 +37,12 @@ public class Manager_GameState : MonoBehaviour
 
     private void OnDisable()
     {
-        Manager_Level.OnLevelInstantiated -= OnLevelInstantiated;
+        //Manager_Level.OnLevelInstantiated -= OnLevelInstantiated;
+        UI_Button_Play.OnPlayButtonClicked -= OnPlayButtonClicked;
 
         UI_Button_Forfeit.OnForfeitButtonPressed -= OnForfeitButtonPressed;
+        
+        UI_Button_NextLevel.OnNextLevelButtonPressed -= OnNextLevelButtonPressed;
 
         UI_Button_NextLevel.OnNextLevelButtonPressed -= Initialize;
         UI_Button_Retry.OnRetryButtonClicked -= Initialize;
@@ -65,6 +71,14 @@ public class Manager_GameState : MonoBehaviour
         m_enterGamestateWithDelayCoroutine = StartCoroutine(EnterStateWithDelay(GameState.Gameplay, 0f, 10));
     }
 
+    private void OnPlayButtonClicked()
+    {
+        if(m_enterGamestateWithDelayCoroutine != null)
+            StopCoroutine(m_enterGamestateWithDelayCoroutine);
+
+        m_enterGamestateWithDelayCoroutine = StartCoroutine(EnterStateWithDelay(GameState.Gameplay, 0f, 10));
+    }
+    
     private void OnVictory()
     {
         m_currentGameState = GameState.Victory;
@@ -81,6 +95,14 @@ public class Manager_GameState : MonoBehaviour
     {
         m_currentGameState = GameState.Gameover;
         BroadcastCurrentGameState();
+    }
+
+    private void OnNextLevelButtonPressed()
+    {
+        if(m_enterGamestateWithDelayCoroutine != null)
+            StopCoroutine(m_enterGamestateWithDelayCoroutine);
+
+        m_enterGamestateWithDelayCoroutine = StartCoroutine(EnterStateWithDelay(GameState.MainMenu, 0f, 10));
     }
 
     private IEnumerator EnterStateWithDelay(GameState targetGameState, float delay = 0f, int framesToWait = 0)
