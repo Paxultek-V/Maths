@@ -60,6 +60,11 @@ public class Dial : MonoBehaviour
         get => m_dialNumberWithOffsetList;
     }
 
+    public List<int> DialNumberList
+    {
+        get => m_dialNumberList;
+    }
+    
     private List<Transform> m_wsuiAnchorsList;
     private List<int> m_dialNumberList;
     private WSUI_DialNumber m_wsuiNumberBuffer;

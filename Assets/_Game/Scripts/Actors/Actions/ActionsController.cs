@@ -5,6 +5,7 @@ public class ActionsController : MonoBehaviour
 {
     public static Action OnNoActionsLeft;
     public static Action<int> OnUpdateActionCount;
+    public static Action OnCheckLocksState;
 
     [SerializeField] private int m_initialActionCount = 20;
 
@@ -13,11 +14,13 @@ public class ActionsController : MonoBehaviour
     private void OnEnable()
     {
         Dial.OnPlayAction += DecreaseCurrentActionCount;
+        LocksController.OnSendAllLocksDestroyedState += OnSendAllLocksDestroyedState;
     }
 
     private void OnDisable()
     {
         Dial.OnPlayAction -= DecreaseCurrentActionCount;
+        LocksController.OnSendAllLocksDestroyedState -= OnSendAllLocksDestroyedState;
     }
 
     private void Start()
@@ -37,6 +40,12 @@ public class ActionsController : MonoBehaviour
         OnUpdateActionCount?.Invoke(m_currentActionCount);
 
         if (m_currentActionCount <= 0)
+            OnCheckLocksState?.Invoke();
+    }
+
+    private void OnSendAllLocksDestroyedState(bool isAllLocksDestroyed)
+    {
+        if (isAllLocksDestroyed == false)
             OnNoActionsLeft?.Invoke();
     }
 }

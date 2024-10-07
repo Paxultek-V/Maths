@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class LocksController : MonoBehaviour
 {
-    public static Action<int> OnAskRandomDialNumbersCombination;
+    public static Action<List<Lock>> OnAskRandomDialNumbersCombination;
     public static Action OnAllLocksDestroyed;
+    public static Action<bool> OnSendAllLocksDestroyedState;
 
     [SerializeField] private Dials_Controller m_dialsController;
     
@@ -26,6 +27,7 @@ public class LocksController : MonoBehaviour
         Dials_Controller.OnDialsInitialized += OnDialsInitialized;
         Dials_Controller.OnSendRandomCombinationList += OnSendRandomCombinationList;
         Lock.OnLockDestroyed += OnLockDestroyed;
+        ActionsController.OnCheckLocksState += OnCheckLocksState;
     }
 
     private void OnDisable()
@@ -33,11 +35,12 @@ public class LocksController : MonoBehaviour
         Dials_Controller.OnDialsInitialized -= OnDialsInitialized;
         Dials_Controller.OnSendRandomCombinationList -= OnSendRandomCombinationList;
         Lock.OnLockDestroyed -= OnLockDestroyed;
+        ActionsController.OnCheckLocksState -= OnCheckLocksState;
     }
 
     private void OnDialsInitialized()
     {
-        OnAskRandomDialNumbersCombination?.Invoke(m_lockList.Count);
+        OnAskRandomDialNumbersCombination?.Invoke(m_lockList);
     }
 
     private void OnSendRandomCombinationList(List<int> randomCombinationList)
@@ -56,5 +59,10 @@ public class LocksController : MonoBehaviour
         {
             OnAllLocksDestroyed?.Invoke();
         }
+    }
+
+    private void OnCheckLocksState()
+    {
+        OnSendAllLocksDestroyedState?.Invoke(m_lockList.Count == 0);
     }
 }

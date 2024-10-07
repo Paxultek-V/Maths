@@ -17,7 +17,7 @@ public class Dials_Controller : MonoBehaviour
     {
         get => m_numbersCount;
     }
-    
+
     private List<Dial> m_dialList = null;
     private List<int> m_codeSequenceListBuffer = new List<int>();
 
@@ -25,7 +25,7 @@ public class Dials_Controller : MonoBehaviour
     {
         get => m_dialList;
     }
-    
+
     private void OnEnable()
     {
         Dial.OnDialUpdated += OnDialUpdated;
@@ -53,37 +53,50 @@ public class Dials_Controller : MonoBehaviour
             {
                 m_codeSequenceListBuffer.Add(m_dialList[j].DialNumberWithOffsetList[i]);
             }
-            
+
             OnSendCodeSequence?.Invoke(i, m_codeSequenceListBuffer);
         }
     }
-    
+
     private void Initialize()
     {
         m_dialList = new List<Dial>(GetComponentsInChildren<Dial>());
-        
+
         for (int i = 0; i < m_dialList.Count; i++)
         {
             m_dialList[i].Initialize(m_numbersCount, m_minRange, m_maxRange);
         }
-        
+
         OnDialsInitialized?.Invoke();
         OnSendTotalDialCount?.Invoke(m_dialList.Count);
     }
 
-    private void OnAskRandomDialNumbersCombination(int combinationCount)
+    private void OnAskRandomDialNumbersCombination(List<Lock> lockList)
     {
         List<int> randomCombinationList = new List<int>();
 
-        for (int i = 0; i < combinationCount; i++)
+        for (int i = 0; i < lockList.Count; i++)
         {
-            randomCombinationList.Add(GetRandomDialCombinationSum());
+            randomCombinationList.Add(GetValidCombinationSum(lockList, i));
         }
-        
+
         OnSendRandomCombinationList?.Invoke(randomCombinationList);
     }
 
-    public int GetRandomDialCombinationSum()
+    private int GetValidCombinationSum(List<Lock> lockList, int lockIndex)
+    {
+        int combination = GetRandomDialCombinationSum();
+        int sumAtIndex = 0;
+
+        foreach (var dial in m_dialList)
+        {
+            sumAtIndex += dial.DialNumberList[lockList[lockIndex].IndexOnDial];
+        }
+
+        return combination != sumAtIndex ? combination : GetValidCombinationSum(lockList, lockIndex);
+    }
+    
+    private int GetRandomDialCombinationSum()
     {
         int sum = 0;
 
@@ -94,5 +107,5 @@ public class Dials_Controller : MonoBehaviour
 
         return sum;
     }
-    
+
 }

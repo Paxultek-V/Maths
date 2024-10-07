@@ -3667,82 +3667,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
+    SerializedFormat: 0
+    SerializedBytes: 0101120000006d005f006f007000740069006f006e00440069006300740069006f006e006100720079002f00000000016a000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e00440069006300740069006f006e00610072007900600032005b005b004f007000740069006f006e0054007900700065002c00200041007300730065006d0062006c0079002d004300530068006100720070005d002c005b004f007000740069006f006e002c00200041007300730065006d0062006c0079002d004300530068006100720070005d005d002c0020006d00730063006f0072006c00690062000000000001010800000063006f006d00700061007200650072002f01000000015a000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e0045006e0075006d0045007100750061006c0069007400790043006f006d0070006100720065007200600031005b005b004f007000740069006f006e0054007900700065002c00200041007300730065006d0062006c0079002d004300530068006100720070005d005d002c0020006d00730063006f0072006c0069006200010000000600000000000000000705060200000000000000042e1d010200000024006b000000000000000000010102000000240076002f0200000001170000004f007000740069006f006e002c00200041007300730065006d0062006c0079002d004300530068006100720070000200000027010700000073006100760065004b0065007900010500000053006f0075006e0064002b010500000073007400610074006500010505042e1d010200000024006b0001000000000000000101020000002400760030020000000300000027010700000073006100760065004b0065007900010900000056006900620072006100740069006f006e002b0105000000730074006100740065000105050705
     ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: m_optionDictionary
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[OptionType, Assembly-CSharp],[Option,
-        Assembly-CSharp]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[OptionType, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 2
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 7
-      Data: 2|Option, Assembly-CSharp
-    - Name: saveKey
-      Entry: 1
-      Data: Sound
-    - Name: state
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 7
-      Data: 3|Option, Assembly-CSharp
-    - Name: saveKey
-      Entry: 1
-      Data: Vibration
-    - Name: state
-      Entry: 5
-      Data: true
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
 --- !u!1 &1123649759
 GameObject:
   m_ObjectHideFlags: 0
@@ -4293,8 +4225,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
-    SerializedFormat: 2
-    SerializedBytes: 
+    SerializedFormat: 0
+    SerializedBytes: 01010e0000006d005f0075006900440069006300740069006f006e006100720079002f00000000017f000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e00440069006300740069006f006e00610072007900600032005b005b00470061006d006500530074006100740065002c00200041007300730065006d0062006c0079002d004300530068006100720070005d002c005b0055006e0069007400790045006e00670069006e0065002e00430061006e00760061007300470072006f00750070002c00200055006e0069007400790045006e00670069006e0065002e00550049004d006f00640075006c0065005d005d002c0020006d00730063006f0072006c00690062000000000001010800000063006f006d00700061007200650072002f010000000159000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e0045006e0075006d0045007100750061006c0069007400790043006f006d0070006100720065007200600031005b005b00470061006d006500530074006100740065002c00200041007300730065006d0062006c0079002d004300530068006100720070005d005d002c0020006d00730063006f0072006c0069006200010000000600000000000000000705060400000000000000042e1d010200000024006b0000000000000000000b0102000000240076000000000005042e1d010200000024006b0001000000000000000b0102000000240076000100000005042e1d010200000024006b0002000000000000000b0102000000240076000200000005042e1d010200000024006b0003000000000000000b01020000002400760003000000050705
     ReferencedUnityObjects:
     - {fileID: 1069165161}
     - {fileID: 1069165160}
@@ -4304,81 +4236,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: m_uiDictionary
-      Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[GameState, Assembly-CSharp],[UnityEngine.CanvasGroup,
-        UnityEngine.UIModule]], mscorlib
-    - Name: comparer
-      Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[GameState, Assembly-CSharp]],
-        mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 0
-    - Name: $v
-      Entry: 10
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 10
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 10
-      Data: 2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 3
-    - Name: $v
-      Entry: 10
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
   m_fadeDuration: 0.5
 --- !u!1 &1283989886
 GameObject:

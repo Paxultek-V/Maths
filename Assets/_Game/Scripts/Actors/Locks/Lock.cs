@@ -21,6 +21,11 @@ public class Lock : MonoBehaviour
 
     [SerializeField] private bool m_debug = false;
     
+    public int IndexOnDial
+    {
+        get => m_indexOnDial;
+    }
+    
     private void OnEnable()
     {
         Dials_Controller.OnSendCodeSequence += OnSendCodeSequence;
