@@ -6,7 +6,7 @@ public class Manager_HapticFeedback : MonoBehaviour
     private void OnEnable()
     {
         Option.OnSendOptionState += OnSendOptionState;
-        
+
         Manager_GameState.OnSendCurrentGameState += OnBroadcastGameState;
 
         InputsDialController.OnSelectDial += OnSelectDial;
@@ -18,19 +18,24 @@ public class Manager_HapticFeedback : MonoBehaviour
     private void OnDisable()
     {
         Option.OnSendOptionState -= OnSendOptionState;
-        
+
         Manager_GameState.OnSendCurrentGameState -= OnBroadcastGameState;
-        
+
         InputsDialController.OnSelectDial -= OnSelectDial;
         InputsDialController.OnReleaseDial -= OnReleaseDial;
-        
+
         Lock.OnLockDestroyed -= OnLockDestroyed;
     }
 
     private void OnSendOptionState(OptionType optionType, bool state)
     {
         if (optionType == OptionType.Vibration)
+        {
             Taptic.tapticOn = state;
+
+            if (state)
+                PlayHeavyHaptic();
+        }
     }
 
     private void OnLockDestroyed(Lock destroyedLock)
@@ -48,7 +53,7 @@ public class Manager_HapticFeedback : MonoBehaviour
     {
         PlayLightHaptic();
     }
-    
+
     private void OnBroadcastGameState(GameState state)
     {
         switch (state)

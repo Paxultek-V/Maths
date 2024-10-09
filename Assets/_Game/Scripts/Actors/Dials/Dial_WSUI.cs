@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dial_WSUI : MonoBehaviour
 {
-    private const float WSUI_POSITION_RADIUS_OFFSET = 0.5f;
+    private const float WSUI_POSITION_RADIUS_OFFSET = 0.4f;
     
     [Header("UI Numbers Params")] [SerializeField]
     private WSUI_DialNumber m_wsuiDialNumberPrefab = null;

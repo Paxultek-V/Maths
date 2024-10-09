@@ -22,7 +22,7 @@ public class Dial_SeparatorsController : MonoBehaviour
         GameObject separatorBuffer;
         for (int i = 0; i < numbersCountOnDial; i++)
         {
-            separatorBuffer = Instantiate(m_separatorPrefab, transform.position - Vector3.forward, Quaternion.identity,
+            separatorBuffer = Instantiate(m_separatorPrefab, transform.position - Vector3.forward * 0.1f, Quaternion.identity,
                 m_separatorsParent);
             Vector3 direction = CalculateSeparatorUpDirection(angleStep, i, dialOrderNumber);
             direction.z = 0f;

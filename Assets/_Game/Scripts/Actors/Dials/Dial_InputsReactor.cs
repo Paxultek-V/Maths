@@ -15,7 +15,7 @@ public class Dial_InputsReactor : MonoBehaviour
     private Vector3 m_cursorStartPositionRelativeToDial;
     private Vector3 m_cursorCurrentPositionRelativeToDial;
     private bool m_isSelected;
-    
+
 
     private void OnEnable()
     {
@@ -45,10 +45,10 @@ public class Dial_InputsReactor : MonoBehaviour
     private void OnSelectDial(Collider selectedDialCollider, Vector3 cursorPosition, ControlMode controlMode)
     {
         m_isSelected = m_collider == selectedDialCollider;
-
+        
         if (!m_isSelected)
             return;
-
+        
         m_cursorStartPositionRelativeToDial = cursorPosition - m_dialCenterScreenPosition;
         m_cursorStartPositionRelativeToDial.z = 0;
         m_cursorStartPositionRelativeToDial.Normalize();
@@ -60,12 +60,13 @@ public class Dial_InputsReactor : MonoBehaviour
     {
         if (!m_isSelected)
             return;
-        
+
         m_cursorCurrentPositionRelativeToDial = cursorPosition - m_dialCenterScreenPosition;
         m_cursorCurrentPositionRelativeToDial.z = 0;
         m_cursorCurrentPositionRelativeToDial.Normalize();
 
-        OnInteractionContinued?.Invoke(controlMode, m_cursorStartPositionRelativeToDial, m_cursorCurrentPositionRelativeToDial);
+        OnInteractionContinued?.Invoke(controlMode, m_cursorStartPositionRelativeToDial,
+            m_cursorCurrentPositionRelativeToDial);
     }
 
     private void OnNoDialSelected()

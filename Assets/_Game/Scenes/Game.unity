@@ -2547,7 +2547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &882421760
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3364,7 +3364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2829958584957608062, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3357606287208313595, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3452,7 +3452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5208005769211803286, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5218757203670943792, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_Color.b
@@ -3476,7 +3476,7 @@ PrefabInstance:
       objectReference: {fileID: 1255521869}
     - target: {fileID: 6416952242005108526, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -150
+      value: -300
       objectReference: {fileID: 0}
     - target: {fileID: 6487420544077501283, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_Color.b
@@ -3508,19 +3508,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7358417798988027724, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7358417798988027724, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7358417798988027724, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7358417798988027724, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -62.5
       objectReference: {fileID: 0}
     - target: {fileID: 7727407616499416911, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4183,7 +4183,7 @@ Camera:
   far clip plane: 1000
   field of view: 73.81587
   orthographic: 1
-  orthographic size: 11
+  orthographic size: 9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -4594,7 +4594,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1404428356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5035,7 +5035,7 @@ MonoBehaviour:
   m_Follow: {fileID: 124562484}
   m_Lens:
     FieldOfView: 73.81587
-    OrthographicSize: 11
+    OrthographicSize: 9
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

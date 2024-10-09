@@ -62,6 +62,8 @@ public class Dials_Controller : MonoBehaviour
     {
         m_dialList = new List<Dial>(GetComponentsInChildren<Dial>());
 
+        Dial_VisualController.SetRandomIndexOffset();
+        
         for (int i = 0; i < m_dialList.Count; i++)
         {
             m_dialList[i].Initialize(m_numbersCount, m_minRange, m_maxRange);

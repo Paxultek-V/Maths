@@ -369,6 +369,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4562515545151029942, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
+      propertyPath: m_dialOrderNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4562515545151029942, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_wsuiPositionRadius
       value: 2.5
       objectReference: {fileID: 0}
@@ -390,7 +394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8550157339652999998, guid: aa8f7af4c62d44ed7be770011cee4a97, type: 3}
       propertyPath: m_LocalRotation.w

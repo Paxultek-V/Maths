@@ -71,7 +71,6 @@ public class InputsDialController : MonoBehaviour
         if (Physics.Raycast(ray, out hit, 5000f, m_effectiveLayer))
         {
             m_currentSelectedDial = hit.collider;
-            
             OnSelectDial?.Invoke(m_currentSelectedDial, m_cursorStartPosition, m_controlMode);
         }
         else

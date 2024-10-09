@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64b053eee2aaa4598b127b8c4a5dfab3, type: 3}
+  m_Name: DialVisual_Data
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 2100000, guid: 22c77680116c04587bb2e05cc2ddf31c, type: 2}
+    - {fileID: 2100000, guid: 2be8d4d446d344e7a937bbbb06641ff7, type: 2}
+    - {fileID: 2100000, guid: 1420dd0d151f24c42bb4d8cf44eaac59, type: 2}
+    - {fileID: 2100000, guid: 3df0a4646e4624fe5956dda467b0e7a8, type: 2}
+    - {fileID: 2100000, guid: d2c2a2a39927c4ac69222cb4996e51f7, type: 2}
+    - {fileID: 2100000, guid: 9cb628b6187c24212841b6e3603c80a5, type: 2}
+    - {fileID: 2100000, guid: f97a8462cbcf847d88c4b0a6d51bc112, type: 2}
+    - {fileID: 2100000, guid: d2034d7f7326f4c85acefff664e2dd3f, type: 2}
+    - {fileID: 2100000, guid: 969922c4fee4a4e2e9af2511a9709017, type: 2}
+    - {fileID: 2100000, guid: 3e07efaac60204cc3a897c8de8379ec0, type: 2}
+    - {fileID: 2100000, guid: ffaf0cfc8a2ca42b3a1d9f4231c1f13e, type: 2}
+    - {fileID: 2100000, guid: 58266a8ee65214be6bbb2378050eea00, type: 2}
+    - {fileID: 2100000, guid: 27bcb7d9162e1470f8b7659ea7b6a123, type: 2}
+    - {fileID: 2100000, guid: 880017241fd4940f0b08b1790e6386b4, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: VisualDataList
+      Entry: 7
+      Data: 0|Unity.Plastic.Antlr3.Runtime.Misc.ListStack`1[[System.Tuple`2[[UnityEngine.Material,
+        UnityEngine.CoreModule],[UnityEngine.Material, UnityEngine.CoreModule]],
+        mscorlib]], Unity.Plastic.Antlr3.Runtime
+    - Name: 
+      Entry: 12
+      Data: 7
+    - Name: 
+      Entry: 7
+      Data: 1|System.Tuple`2[[UnityEngine.Material, UnityEngine.CoreModule],[UnityEngine.Material,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: m_Item1
+      Entry: 10
+      Data: 0
+    - Name: m_Item2
+      Entry: 10
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|System.Tuple`2[[UnityEngine.Material, UnityEngine.CoreModule],[UnityEngine.Material,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: m_Item1
+      Entry: 10
+      Data: 2
+    - Name: m_Item2
+      Entry: 10
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|System.Tuple`2[[UnityEngine.Material, UnityEngine.CoreModule],[UnityEngine.Material,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: m_Item1
+      Entry: 10
+      Data: 4
+    - Name: m_Item2
+      Entry: 10
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 4|System.Tuple`2[[UnityEngine.Material, UnityEngine.CoreModule],[UnityEngine.Material,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: m_Item1
+      Entry: 10
+      Data: 6
+    - Name: m_Item2
+      Entry: 10
+      Data: 7
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 5|System.Tuple`2[[UnityEngine.Material, UnityEngine.CoreModule],[UnityEngine.Material,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: m_Item1
+      Entry: 10
+      Data: 8
+    - Name: m_Item2
+      Entry: 10
+      Data: 9
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|System.Tuple`2[[UnityEngine.Material, UnityEngine.CoreModule],[UnityEngine.Material,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: m_Item1
+      Entry: 10
+      Data: 10
+    - Name: m_Item2
+      Entry: 10
+      Data: 11
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|System.Tuple`2[[UnityEngine.Material, UnityEngine.CoreModule],[UnityEngine.Material,
+        UnityEngine.CoreModule]], mscorlib
+    - Name: m_Item1
+      Entry: 10
+      Data: 12
+    - Name: m_Item2
+      Entry: 10
+      Data: 13
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+  OutlineMaterial: {fileID: 2100000, guid: 1a322839f7caa4c0d9a2be4539afe195, type: 2}

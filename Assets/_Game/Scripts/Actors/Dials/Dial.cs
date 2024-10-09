@@ -14,6 +14,7 @@ public class Dial : MonoBehaviour
     private Dial_SeparatorsController m_dialSeparatorsController;
     private Dial_WSUI m_dialWSUI;
     private Dial_RotationController m_dialRotationController;
+    private Dial_VisualController m_dialVisualController;
 
 
     [FormerlySerializedAs("m_dialOrder")] [Header("Game Params")] [SerializeField]
@@ -43,6 +44,7 @@ public class Dial : MonoBehaviour
         m_dialSeparatorsController = GetComponent<Dial_SeparatorsController>();
         m_dialWSUI = GetComponent<Dial_WSUI>();
         m_dialRotationController = GetComponent<Dial_RotationController>();
+        m_dialVisualController = GetComponent<Dial_VisualController>();
     }
 
     private void OnEnable()
@@ -56,9 +58,6 @@ public class Dial : MonoBehaviour
         m_dialRotationController.OnApplyRotation -= OnApplyRotation;
         m_dialRotationController.OnRotationComplete -= OnRotationComplete;
     }
-
-
-    #region INITIALIZATION
 
     public void Initialize(int numbersCount, int minRange, int maxRange)
     {
@@ -77,6 +76,8 @@ public class Dial : MonoBehaviour
 
         m_dialSeparatorsController.Initialize(m_dialOrderNumber, m_numbersCountOnDial, m_angleStep);
 
+        m_dialVisualController.Initialize(m_dialOrderNumber);
+
         m_dialNumberWithOffsetList = new List<int>(m_dialNumberList);
     }
 
@@ -88,8 +89,6 @@ public class Dial : MonoBehaviour
             m_dialNumberList.Add(Random.Range(minRange, maxRange));
         }
     }
-
-    #endregion
 
     private void OnRotationComplete()
     {
