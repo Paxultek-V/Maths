@@ -12,7 +12,7 @@ public class InputsDialController : MonoBehaviour
 {
     public static Action<Collider, Vector3, ControlMode> OnSelectDial;
     public static Action<Collider, ControlMode> OnReleaseDial;
-    public static Action<Vector3, float> OnSendRotationInfos;
+    public static Action<Vector3, float, ControlMode> OnHoldDial;
     public static Action OnNoDialSelected;
     public static Action<ControlMode> OnSendControlsMode;
 
@@ -91,7 +91,7 @@ public class InputsDialController : MonoBehaviour
         if (Mathf.Abs(directionDistance) < m_pixelCountThresholdToConsiderMovement)
             return;
 
-        OnSendRotationInfos?.Invoke(cursorPosition, directionDistance * m_pixelsToAngleDegreesFactor);
+        OnHoldDial?.Invoke(cursorPosition, directionDistance * m_pixelsToAngleDegreesFactor, m_controlMode);
     }
 
     private void OnRelease(Vector3 cursorPosition)
