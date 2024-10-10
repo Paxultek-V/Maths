@@ -3306,6 +3306,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1708360105171506017, guid: 163032536b42746398cefd37d83fd468, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1715806872769607599, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_Camera
       value: 
@@ -3437,6 +3441,10 @@ PrefabInstance:
     - target: {fileID: 4499742279046443993, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_Interactable
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4771767441382886309, guid: 163032536b42746398cefd37d83fd468, type: 3}
+      propertyPath: m_Alpha
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5132020490890415007, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_fontAsset
@@ -3572,7 +3580,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8943309007881350302, guid: 163032536b42746398cefd37d83fd468, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -150
+      value: -300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
