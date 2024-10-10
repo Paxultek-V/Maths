@@ -65,6 +65,7 @@ public class Manager_Level : GameflowBehavior
         SaveTotalLevelCleared();
         OnSendTotalLevelCleared?.Invoke(m_totalLevelCleared);
         OnLevelEnd?.Invoke(true);
+        YsoCorp.GameUtils.YCManager.instance.OnGameFinished(true);
     }
 
     protected override void OnGameover()
@@ -72,6 +73,7 @@ public class Manager_Level : GameflowBehavior
         base.OnGameover();
         DestroyLevel();
         OnLevelEnd?.Invoke(false);
+        YsoCorp.GameUtils.YCManager.instance.OnGameFinished(false);
     }
 
     private void OnNextLevelButtonPressed()
@@ -116,6 +118,10 @@ public class Manager_Level : GameflowBehavior
         yield return new WaitForEndOfFrame();
         
         OnSendCurrentLevel?.Invoke(m_currentLevelIndex);
+        
+        // YSO SDK
+        YsoCorp.GameUtils.YCManager.instance.OnGameStarted(m_totalLevelCleared);
+        
         OnSendTotalLevelCleared?.Invoke(m_totalLevelCleared);
         OnLevelInstantiated?.Invoke();
     }
